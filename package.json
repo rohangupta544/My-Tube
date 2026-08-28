@@ -1,0 +1,29 @@
+{
+  "name": "chai-aur-backend",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000M\u0000y\u0000-\u0000T\u0000u\u0000b\u0000e\u0000\r\u0000 \u0000",
+  "homepage": "https://github.com/rohangupta544/My-Tube#readme",
+  "bugs": {
+    "url": "https://github.com/rohangupta544/My-Tube/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohangupta544/My-Tube.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.9.4"
+  }
+}

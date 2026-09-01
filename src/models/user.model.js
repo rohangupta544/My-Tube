@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 
 const userSchema = new Schema(
     {
-        userName: {
+        username: {
             type: String,
             required: true,
             unique: true,
@@ -54,7 +54,7 @@ userSchema.pre('save',function(next){                 // Dont use arrow function
                                                         // ans this middleware is used for saved the encrypted password   
 
     if(!this.isModified('password')) return next();
-    this.password=bcrypt.hash('password',10);
+    this.password=bcrypt.hash('this.password',10);
     next();
 })
 
@@ -67,7 +67,7 @@ userSchema.methods.generateAccessToken=function(){
     jwt.sign(
         {
         _id:this._id,
-        userName:this.userName,
+        username:this.userName,
         email:this.email,
         fullName:this.fullName
         },

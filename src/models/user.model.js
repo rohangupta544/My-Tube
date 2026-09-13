@@ -17,7 +17,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            lowecase: true,
+            lowercase: true,
             trim: true, 
         },
         fullName: {
@@ -43,6 +43,9 @@ const userSchema = new Schema(
             type: String,
             required: [true, 'Password is required']
         },
+        refreshToken:{
+            type: String,
+        }
      
     },
     {
@@ -50,12 +53,11 @@ const userSchema = new Schema(
     }
 )
 
-userSchema.pre('save',function(next){                 // Dont use arrow function,because arrow function dont have the access of this
+userSchema.pre('save',async function(){                 // Dont use arrow function,because arrow function dont have the access of this
                                                         // ans this middleware is used for saved the encrypted password   
 
-    if(!this.isModified('password')) return next();
-    this.password=bcrypt.hash('this.password',10);
-    next();
+    if(!this.isModified('password')) return;
+    this.password=await bcrypt.hash(this.password,10);
 })
 
 
@@ -64,10 +66,10 @@ userSchema.methods.isPasswordCorrect= async function(password){
 }
 
 userSchema.methods.generateAccessToken=function(){
-    jwt.sign(
+    return jwt.sign(
         {
         _id:this._id,
-        username:this.userName,
+        username:this.username,
         email:this.email,
         fullName:this.fullName
         },
@@ -80,7 +82,7 @@ userSchema.methods.generateAccessToken=function(){
 }
 
 userSchema.methods.generateRefreshToken=function(){
-     jwt.sign(
+     return jwt.sign(
         {
         _id:this._id,
       
@@ -91,5 +93,6 @@ userSchema.methods.generateRefreshToken=function(){
         }
 )
 }
+const User = mongoose.model("User", userSchema)
 
-export const User = mongoose.model("User", userSchema)
+export {User}
